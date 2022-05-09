@@ -1,0 +1,72 @@
+.night_mode {
+  width: 80px;
+  height: 30px;
+  background-color: #e6e6e6;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.nightModeTitle_title {
+  position: absolute;
+  top: 65px;
+  right: 25px;
+}
+
+.night_mode.active {
+  background-color: #222222;
+}
+
+.keys.keys_night {
+  background-color: #3c3c3c;
+  color: #fff;
+
+  .arrows {
+    background-color: #3c3c3c;
+    fill: #fff;
+  }
+}
+
+.keys.keys_night.active {
+  background-color: #fff;
+  color: #333;
+
+  .arrows {
+    background-color: #fff;
+    fill: #333;
+    transition: .2s;
+  }
+}
+
+.keys.keys_night:hover {
+  background-color: #fff;
+  color: #333;
+  
+  .arrows {
+    background-color: #fff;
+    fill: #333;
+    transition: .2s;
+  }
+}
+
+.keys.keys_night.remove {
+  animation: keys_night_animation 0.5 forwards;
+}
+
+
+@keyframes keys_night_animation {
+  0% {
+    background-color: #fff;
+    color: #000;
+  }
+
+  100% {
+    background-color: #f7f7f7;
+    color: #fff;
+  }
+}

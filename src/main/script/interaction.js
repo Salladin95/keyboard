@@ -173,10 +173,11 @@ window.addEventListener('load', () => {
         txtField.focus();
       }, 200);
     }
-    console.log(e.target.classList);
     if (e.target.classList.contains('arr')) {
+      if (!focus) {
+        return;
+      }
       const target = e.target.classList;
-      console.log(target);
       if (target.contains('left')) {
         if (txtField.selectionStart > 0) {
           const ind = txtField.selectionStart;
@@ -186,8 +187,6 @@ window.addEventListener('load', () => {
         const ind = txtField.selectionStart;
         if (ind < txtField.value.length) {
           txtField.selectionStart = txtField.selectionEnd = ind + 1;
-        } else {
-          console.log('here');
         }
       }
     }

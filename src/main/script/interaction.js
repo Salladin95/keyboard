@@ -16,6 +16,7 @@ window.addEventListener('load', () => {
   const keys = document.querySelectorAll('.keys');
   let focus;
   let highlight = '';
+  let language = 'en';
 
   setAtrsforKeys(keys);
 
@@ -24,9 +25,6 @@ window.addEventListener('load', () => {
 
   const capsLock = document.querySelector('.caps_lock_key');
   capsLock.setAttribute('keyname', 'CapsLock');
-
-  const language = document.querySelector('.language');
-  language.setAttribute('active', 'en');
 
   const tab = document.querySelector('.tab_key');
   tab.setAttribute('keyname', 'Tab');
@@ -65,6 +63,15 @@ window.addEventListener('load', () => {
   left.setAttribute('keyname', 'ArrowLeft');
   right.setAttribute('keyname', 'ArrowRight');
 
+  if (localStorage.getItem('active-language') && language !== localStorage.getItem('active-language')) {
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i].getAttribute('keyRu')) {
+        keys[i].innerHTML = keys[i].getAttribute('keyRu');
+      }
+    }
+    language = localStorage.getItem('active-language');
+  }
+
   window.addEventListener('keydown', (e) => {
     for (let i = 0; i < keys.length; i++) {
       if (
@@ -79,14 +86,14 @@ window.addEventListener('load', () => {
     }
 
     if (e.key === 'Shift') {
-      getUpperCase(keys, language);
+      getUpperCase(keys);
     }
     if (e.key === 'Control' || e.key === 'Alt') {
       if (
         (checkActive(ctrlLeft) && checkActive(altLeft))
         || (checkActive(ctrlRight) && checkActive(altRight))
       ) {
-        toggleLanguage(language, keys);
+        toggleLanguage(keys);
       }
     }
   });
@@ -109,7 +116,7 @@ window.addEventListener('load', () => {
       }, 100);
     }
     if (e.key === 'Shift') {
-      getLowerCase(keys, language);
+      getLowerCase(keys);
     }
   });
 
@@ -174,9 +181,9 @@ window.addEventListener('load', () => {
     } else if (keyname === 'ShiftLeft' || keyname === 'ShiftRight' || keyname === 'CapsLock') {
       toggleActive(e.target);
       if (e.target.classList.contains('active')) {
-        getUpperCase(keys, language);
+        getUpperCase(keys);
       } else {
-        getLowerCase(keys, language);
+        getLowerCase(keys);
       }
     } else if (keyname === 'Tab') {
       txtField.value += '    ';
@@ -208,9 +215,9 @@ function rmTxt(target, txtValue) {
   return txtValue.replace(regExp, '');
 }
 
-function getUpperCase(keys, language) {
+function getUpperCase(keys) {
   for (let i = 0; i < keys.length; i++) {
-    if (language.getAttribute('active') === 'en') {
+    if (localStorage.getItem('active-language') === 'en') {
       if (keys[i].getAttribute('keyEn') || keys[i].getAttribute('key')) {
         keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameEn');
       }
@@ -220,12 +227,12 @@ function getUpperCase(keys, language) {
   }
 }
 
-function getLowerCase(keys, language) {
+function getLowerCase(keys) {
   for (let i = 0; i < keys.length; i++) {
     if (keys[i].getAttribute('key')) {
       keys[i].innerHTML = keys[i].getAttribute('key');
     }
-    if (language.getAttribute('active') === 'en') {
+    if (localStorage.getItem('active-language') === 'en') {
       if (keys[i].getAttribute('keyEn')) {
         keys[i].innerHTML = keys[i].getAttribute('keyEn');
       }
@@ -250,21 +257,21 @@ function checkActive(el) {
   return false;
 }
 
-function toggleLanguage(language, keys) {
-  if (language.getAttribute('active') === 'en') {
+function toggleLanguage(keys) {
+  if (localStorage.getItem('active-language') === 'en') {
     for (let i = 0; i < keys.length; i++) {
       if (keys[i].getAttribute('keyEn')) {
         keys[i].innerHTML = keys[i].getAttribute('keyRu');
       }
     }
-    language.setAttribute('active', 'ru');
+    localStorage.setItem('active-language', 'ru');
   } else {
     for (let i = 0; i < keys.length; i++) {
       if (keys[i].getAttribute('keyEn')) {
         keys[i].innerHTML = keys[i].getAttribute('keyEn');
       }
     }
-    language.setAttribute('active', 'en');
+    localStorage.setItem('active-language', 'en');
   }
 }
 

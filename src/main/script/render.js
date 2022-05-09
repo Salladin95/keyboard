@@ -27,7 +27,7 @@ window.addEventListener('load', () => {
   noticeHowChancgeLanguage.classList.add('change-language_title');
   noticeHowChancgeLanguage.innerHTML = 'Press Ctrl + Alt to change language';
 
-  const nightModeTitle = createEl('h2', 'itle');
+  const nightModeTitle = createEl('h2', 'title');
   nightModeTitle.classList.add('nightModeTitle_title');
   nightModeTitle.innerHTML = 'Night mode';
 
@@ -79,9 +79,6 @@ window.addEventListener('load', () => {
   );
 
   keyboardKeys.childNodes[4].firstChild.classList.add('ctrl_key', 'ctrl_left');
-
-  const language = keyboardKeys.childNodes[4].childNodes[1];
-  language.classList.add('language');
 
   keyboardKeys.childNodes[4].childNodes[2].classList.add(
     'alt_key',

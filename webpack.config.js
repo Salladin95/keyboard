@@ -25,7 +25,7 @@ module.exports = ({ development }) => ({
   },
   output: {
     filename: "./js/[name].js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve("../", "dist"),
     assetModuleFilename: "assets/images/[name][ext]",
   },
   module: {
@@ -80,7 +80,7 @@ module.exports = ({ development }) => ({
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-      //cleanOnceBeforeBuildPatterns: ["**/*", "!.git"],
+      cleanOnceBeforeBuildPatterns: ["**/*", "!.git"],
     }),
   ],
   resolve: {

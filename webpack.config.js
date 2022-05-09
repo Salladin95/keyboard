@@ -75,7 +75,7 @@ module.exports = () => ({
     new HtmlWebpackPlugin({
       template: './src/main/index.html',
       inject: true,
-      chunks: ['index"='],
+      chunks: ['index'],
       filename: './index.html',
     }),
     new CleanWebpackPlugin({

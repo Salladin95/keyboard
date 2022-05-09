@@ -25,7 +25,7 @@ module.exports = ({ development }) => ({
   },
   output: {
     filename: "./js/[name].js",
-    path: path.resolve("../", "dist"),
+    path: path.resolve(__dirname, "dist"),
     assetModuleFilename: "assets/images/[name][ext]",
   },
   module: {

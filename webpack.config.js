@@ -1,15 +1,15 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = ({ development }) => ({
+module.exports = () => ({
   // Set the mode to development or production
-  mode: "development",
+  mode: 'development',
 
   // Control how source maps are generated
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
 
   // Spin up a server for quick development
   devServer: {
@@ -21,41 +21,41 @@ module.exports = ({ development }) => ({
   },
 
   entry: {
-    index: "./src/main/index.js",
+    index: './src/main/index.js',
   },
   output: {
-    filename: "./js/[name].js",
-    path: path.resolve(__dirname, "dist"),
-    assetModuleFilename: "assets/images/[name][ext]",
+    filename: './js/[name].js',
+    path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'assets/images/[name][ext]',
   },
   module: {
     rules: [
       {
         test: /\.svg$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "assets/svg/[name][ext]",
+          filename: 'assets/svg/[name][ext]',
         },
-        use: "svgo-loader",
+        use: 'svgo-loader',
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
         generator: {
-          filename: "assets/fonts/[name][ext]",
+          filename: 'assets/fonts/[name][ext]',
         },
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -63,8 +63,8 @@ module.exports = ({ development }) => ({
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "src/assets",
-          to: "assets",
+          from: 'src/assets',
+          to: 'assets',
           noErrorOnMissing: true,
         },
       ],
@@ -73,17 +73,17 @@ module.exports = ({ development }) => ({
       filename: ({ chunk }) => `./css/${chunk.name}.css`,
     }),
     new HtmlWebpackPlugin({
-      template: "./src/main/index.html",
+      template: './src/main/index.html',
       inject: true,
-      chunks: ["index"],
-      filename: "./index.html",
+      chunks: ['index"='],
+      filename: './index.html',
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-      //cleanOnceBeforeBuildPatterns: ["**/*", "!.git"],
+      cleanOnceBeforeBuildPatterns: ['**/*', '!.git'],
     }),
   ],
   resolve: {
-    extensions: [".js"],
+    extensions: ['.js'],
   },
 });

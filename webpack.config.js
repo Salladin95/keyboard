@@ -80,7 +80,7 @@ module.exports = ({ development }) => ({
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-      cleanOnceBeforeBuildPatterns: ["**/*", "!.git"],
+      //cleanOnceBeforeBuildPatterns: ["**/*", "!.git"],
     }),
   ],
   resolve: {

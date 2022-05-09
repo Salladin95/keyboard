@@ -1,42 +1,43 @@
 const keysMap = new Map();
-window.addEventListener("load", function (e) {
+export default keysMap;
+
+window.addEventListener('load', () => {
   fillKeys(keysMap);
 
-  const body = this.document.querySelector("body");
-  let container = createEl("div", "container");
+  const body = document.querySelector('body');
+  const container = createEl('div', 'container');
   body.appendChild(container);
 
-  let wrapper = createEl("div", "wrapper");
+  const wrapper = createEl('div', 'wrapper');
   container.appendChild(wrapper);
 
-  const textArea = createEl("textarea", "text-field");
+  const textArea = createEl('textarea', 'text-field');
   wrapper.appendChild(textArea);
-  textArea.placeholder = "Hello there! \nEnter you thoughts...";
+  textArea.placeholder = 'Hello there! \nEnter you thoughts...';
 
-  const nightMode = createEl("div", "night_mode");
-  nightMode.innerHTML = `<div class="toggle_circle"></div>`;
+  const nightMode = createEl('div', 'night_mode');
+  nightMode.innerHTML = "<div class='toggle_circle'></div>";
 
   wrapper.appendChild(nightMode);
 
-  const changeLightColor = createEl("div", "change_light_color");
-  changeLightColor.innerHTML = `<div class="colors"><input type="color" class="colors_input" /></div>`;
+  const changeLightColor = createEl('div', 'change_light_color');
+  changeLightColor.innerHTML = "<div class='colors'><input type='color' class='colors_input' /></div>";
 
-  const noticeHowChancgeLanguage = createEl("h1", "title");
-  noticeHowChancgeLanguage.classList.add("change-language_title")
-  noticeHowChancgeLanguage.innerHTML = `Press Ctrl + Alt to change language`;
+  const noticeHowChancgeLanguage = createEl('h1', 'title');
+  noticeHowChancgeLanguage.classList.add('change-language_title');
+  noticeHowChancgeLanguage.innerHTML = 'Press Ctrl + Alt to change language';
 
+  const nightModeTitle = createEl('h2', 'itle');
+  nightModeTitle.classList.add('nightModeTitle_title');
+  nightModeTitle.innerHTML = 'Night mode';
 
-  const nightModeTitle = createEl("h2", "title");
-  nightModeTitle.classList.add("nightModeTitle_title")
-  nightModeTitle.innerHTML = `Night mode`;
+  const changeColorTitle = createEl('h2', 'title');
+  changeColorTitle.classList.add('changeColorTitle_title');
+  changeColorTitle.innerHTML = 'Change keyboard color';
 
-  const changeColorTitle = createEl("h2", "title");
-  changeColorTitle.classList.add("changeColorTitle_title")
-  changeColorTitle.innerHTML = `Change keyboard color`;
-
-  const ocTitle = createEl("h2", "title");
-  let oc = isMacintosh() ? "Mac OS" : "Windows";
-  ocTitle.classList.add("ocTitle_title")
+  const ocTitle = createEl('h2', 'title');
+  const oc = isMacintosh() ? 'Mac OS' : 'Windows';
+  ocTitle.classList.add('ocTitle_title');
   ocTitle.innerHTML = `Made for ${oc}`;
 
   wrapper.appendChild(nightMode);
@@ -46,68 +47,68 @@ window.addEventListener("load", function (e) {
   wrapper.appendChild(changeColorTitle);
   wrapper.appendChild(ocTitle);
 
-  const keyBoardWrap = createEl("div", "keyboard_wrapp");
-  const keyboardLights = createEl("div", "keyboard_lights");
-  const keyboardKeys = createEl("div", "keyboard_keys");
+  const keyBoardWrap = createEl('div', 'keyboard_wrapp');
+  const keyboardLights = createEl('div', 'keyboard_lights');
+  const keyboardKeysWr = createEl('div', 'keyboard_keys');
   keyBoardWrap.appendChild(keyboardLights);
-  keyBoardWrap.appendChild(keyboardKeys);
+  keyBoardWrap.appendChild(keyboardKeysWr);
 
   wrapper.appendChild(keyBoardWrap);
 
-  const keyboard_keys = this.document.querySelector(".keyboard_keys");
+  const keyboardKeys = document.querySelector('.keyboard_keys');
 
-  for (let row of keysMap.values()) {
-    keyboard_keys.appendChild(row);
+  for (let i = 0; i < keysMap.size; i++) {
+    keyboardKeys.appendChild(keysMap.get(`row${i + 1}`));
   }
 
-  keyboard_keys.childNodes[0].lastChild.classList.add("backspace_key");
+  keyboardKeys.childNodes[0].lastChild.classList.add('backspace_key');
 
-  keyboard_keys.childNodes[1].firstChild.classList.add("tab_key");
-  keyboard_keys.childNodes[1].lastChild.classList.add("del_key");
+  keyboardKeys.childNodes[1].firstChild.classList.add('tab_key');
+  keyboardKeys.childNodes[1].lastChild.classList.add('del_key');
 
-  keyboard_keys.childNodes[2].firstChild.classList.add("caps_lock_key");
-  keyboard_keys.childNodes[2].lastChild.classList.add("enter_key");
+  keyboardKeys.childNodes[2].firstChild.classList.add('caps_lock_key');
+  keyboardKeys.childNodes[2].lastChild.classList.add('enter_key');
 
-  keyboard_keys.childNodes[3].firstChild.classList.add(
-    "shift_key",
-    "left_shift"
+  keyboardKeys.childNodes[3].firstChild.classList.add(
+    'shift_key',
+    'left_shift',
   );
-  keyboard_keys.childNodes[3].lastChild.classList.add(
-    "shift_key",
-    "right_shift"
-  );
-
-  keyboard_keys.childNodes[4].firstChild.classList.add("ctrl_key", "ctrl_left");
-
-  const language = keyboard_keys.childNodes[4].childNodes[1];
-  language.classList.add("language");
-
-  keyboard_keys.childNodes[4].childNodes[2].classList.add(
-    "alt_key",
-    "alt_left"
-  );
-  keyboard_keys.childNodes[4].childNodes[4].classList.add(
-    "alt_key",
-    "alt_right"
+  keyboardKeys.childNodes[3].lastChild.classList.add(
+    'shift_key',
+    'right_shift',
   );
 
-  const space = keyboard_keys.childNodes[4].childNodes[3];
-  space.classList.add("space_key");
+  keyboardKeys.childNodes[4].firstChild.classList.add('ctrl_key', 'ctrl_left');
 
-  keyboard_keys.childNodes[4].childNodes[5].classList.add(
-    "ctrl_key",
-    "ctrl_right"
+  const language = keyboardKeys.childNodes[4].childNodes[1];
+  language.classList.add('language');
+
+  keyboardKeys.childNodes[4].childNodes[2].classList.add(
+    'alt_key',
+    'alt_left',
+  );
+  keyboardKeys.childNodes[4].childNodes[4].classList.add(
+    'alt_key',
+    'alt_right',
   );
 
-  const up = keyboard_keys.childNodes[3].lastChild.previousSibling;
-  const down = keyboard_keys.childNodes[4].childNodes[7];
-  const left = keyboard_keys.childNodes[4].childNodes[6];
-  const right = keyboard_keys.childNodes[4].childNodes[8];
+  const space = keyboardKeys.childNodes[4].childNodes[3];
+  space.classList.add('space_key');
 
-  up.classList.add("up_key");
-  down.classList.add("down_key");
-  left.classList.add("left_key");
-  right.classList.add("right_key");
+  keyboardKeys.childNodes[4].childNodes[5].classList.add(
+    'ctrl_key',
+    'ctrl_right',
+  );
+
+  const up = keyboardKeys.childNodes[3].lastChild.previousSibling;
+  const down = keyboardKeys.childNodes[4].childNodes[7];
+  const left = keyboardKeys.childNodes[4].childNodes[6];
+  const right = keyboardKeys.childNodes[4].childNodes[8];
+
+  up.classList.add('up_key');
+  down.classList.add('down_key');
+  left.classList.add('left_key');
+  right.classList.add('right_key');
 
   up.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
   <svg width="36px" height="36px" viewBox="0 -6.5 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -166,16 +167,16 @@ window.addEventListener("load", function (e) {
 const createKeys = (arr) => {
   let i = 0;
 
-  const row = createEl("div", "row");
+  const row = createEl('div', 'row');
 
   while (i < arr.length) {
-    let key = document.createElement("div");
-    key.classList.add("keys");
+    const key = document.createElement('div');
+    key.classList.add('keys');
     if (Array.isArray(arr[i])) {
-      key.setAttribute("keyEn", arr[i][0]);
-      key.setAttribute("keyRu", arr[i][1]);
-      key.innerHTML = key.getAttribute("keyEn");
-    }else {
+      key.setAttribute('keyEn', arr[i][0]);
+      key.setAttribute('keyRu', arr[i][1]);
+      key.innerHTML = key.getAttribute('keyEn');
+    } else {
       key.innerHTML = arr[i];
     }
     row.appendChild(key);
@@ -192,79 +193,71 @@ function createEl(tag, className) {
 }
 
 function isMacintosh() {
-  return navigator.platform.indexOf("Mac") > -1;
+  return navigator.platform.indexOf('Mac') > -1;
 }
 
 function fillKeys(map) {
-  const oc = isMacintosh() ? "Mac" : "Win";
+  const oc = isMacintosh() ? 'Mac' : 'Win';
 
+  map.set('row1', createKeys([['`', 'ё'], 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '-', '=', 'Backspace']));
   map.set(
-    "row1",
-    createKeys([
-      ["`", "ё"], 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "=", "Backspace",
-    ])
+    'row2',
+    createKeys(['Tab',
+      ['q', 'й'],
+      ['w', 'ц'],
+      ['e', 'у'],
+      ['r', 'к'],
+      ['t', 'е'],
+      ['y', 'н'],
+      ['u', 'г'],
+      ['i', 'ш'],
+      ['o', 'щ'],
+      ['p', 'з'],
+      ['[', 'х'],
+      [']', 'ъ'],
+      '\\',
+      'DEL',
+    ]),
   );
   map.set(
-    "row2",
+    'row3',
     createKeys([
-      "Tab",
-      ["q", "й"],
-      ["w", "ц"],
-      ["e", "у"],
-      ["r", "к"],
-      ["t", "е"],
-      ["y", "н"],
-      ["u", "г"],
-      ["i", "ш"],
-      ["o", "щ"],
-      ["p", "з"],
-      ["[", "х"],
-      ["]", "ъ"],
-      "\\",
-      "DEL",
-    ])
+      'Caps Lock',
+      ['a', 'ф'],
+      ['s', 'ы'],
+      ['d', 'в'],
+      ['f', 'а'],
+      ['g', 'п'],
+      ['h', 'р'],
+      ['j', 'о'],
+      ['k', 'л'],
+      ['l', 'д'],
+      [';', 'ж'],
+      ["'", 'э'],
+      'Enter',
+    ]),
   );
   map.set(
-    "row3",
+    'row4',
     createKeys([
-      "Caps Lock",
-      ["a", "ф"],
-      ["s", "ы"],
-      ["d", "в"],
-      ["f", "а"],
-      ["g", "п"],
-      ["h", "р"],
-      ["j", "о"],
-      ["k", "л"],
-      ["l", "д"],
-      [";", "ж"],
-      ["'", "э"],
-      "Enter",
-    ])
+      'Shift',
+      '/',
+      ['z', 'я'],
+      ['x', 'ч'],
+      ['c', 'с'],
+      ['v', 'м'],
+      ['b', 'и'],
+      ['n', 'т'],
+      ['m', 'ь'],
+      ['.', 'б'],
+      [',', 'ю'],
+      '/',
+      '',
+      'Shift',
+    ]),
   );
   map.set(
-    "row4",
-    createKeys([
-      "Shift",
-      "/",
-      ["z", "я"],
-      ["x", "ч"],
-      ["c", "с"],
-      ["v", "м"],
-      ["b", "и"],
-      ["n", "т"],
-      ["m", "ь"],
-      [".", "б"],
-      [",", "ю"],
-      "/",
-      "",
-      "Shift",
-    ])
-  );
-
-  map.set(
-    "row5",
-    createKeys(["Ctrl", oc, "Alt", "", "Alt", "Ctrl", "", "", ""])
+    'row5',
+    createKeys(['Ctrl', oc, 'Alt', '', 'Alt', 'Ctrl', '', '', '']),
   );
 }
-export { keysMap };

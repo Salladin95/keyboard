@@ -5,6 +5,7 @@
     "no-use-before-define": "off",
     "no-plusplus": "off",
     "spaced-comment": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-multi-assign": "off"
   }
 }

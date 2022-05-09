@@ -59,9 +59,13 @@ window.addEventListener('load', () => {
   const right = document.querySelector('.right_key');
 
   up.setAttribute('keyname', 'ArrowUp');
+  up.classList.add('arr');
   down.setAttribute('keyname', 'ArrowDown');
+  down.classList.add('arr');
   left.setAttribute('keyname', 'ArrowLeft');
+  left.classList.add('arr');
   right.setAttribute('keyname', 'ArrowRight');
+  right.classList.add('arr');
 
   if (localStorage.getItem('active-language') && language !== localStorage.getItem('active-language')) {
     for (let i = 0; i < keys.length; i++) {
@@ -148,18 +152,45 @@ window.addEventListener('load', () => {
 
   txtField.addEventListener('focus', () => {
     if (!focus) {
-      focus = true;
+      setTimeout(() => {
+        focus = true;
+      }, 200);
     }
   });
 
   txtField.addEventListener('blur', () => {
     if (focus) {
-      focus = false;
+      setTimeout(() => {
+        focus = false;
+      }, 200);
       // console.log("blur");
     }
   });
 
   keyBoardWrap.addEventListener('click', (e) => {
+    if (focus) {
+      setTimeout(() => {
+        txtField.focus();
+      }, 200);
+    }
+    console.log(e.target.classList);
+    if (e.target.classList.contains('arr')) {
+      const target = e.target.classList;
+      console.log(target);
+      if (target.contains('left')) {
+        if (txtField.selectionStart > 0) {
+          const ind = txtField.selectionStart;
+          txtField.selectionStart = txtField.selectionEnd = ind - 1;
+        }
+      } else if (target.contains('right')) {
+        const ind = txtField.selectionStart;
+        if (ind < txtField.value.length) {
+          txtField.selectionStart = txtField.selectionEnd = ind + 1;
+        } else {
+          console.log('here');
+        }
+      }
+    }
     if (!e.target.classList.contains('keys')) {
       return;
     }

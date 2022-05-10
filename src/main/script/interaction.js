@@ -238,10 +238,8 @@ window.addEventListener('load', () => {
   });
 
   document.onselectionchange = () => {
-    /*const {
-      anchorNode, anchorOffset, focusNode, focusOffset,
-    } = document.getSelection();
-    highlight = document.getSelection().toString();*/
+    console.log(txtField.selectionStart);
+    console.log(txtField.selectionEnd);
   };
 });
 

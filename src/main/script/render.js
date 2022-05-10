@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
 
   const textArea = createEl('textarea', 'text-field');
   wrapper.appendChild(textArea);
-  textArea.placeholder = 'Hello there! \nEnter you thoughts...';
+  textArea.placeholder = 'Hello there! \nEnter your thoughts...';
 
   const nightMode = createEl('div', 'night_mode');
   nightMode.innerHTML = "<div class='toggle_circle'></div>";

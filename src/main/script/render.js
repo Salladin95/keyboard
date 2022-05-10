@@ -28,9 +28,7 @@ window.addEventListener('load', () => {
   wrapper.appendChild(ocTitle);
 
   const keyBoardWrap = createEl('div', 'keyboard_wrapp');
-  const keyboardLights = createEl('div', 'keyboard_lights');
   const keyboardKeysWr = createEl('div', 'keyboard_keys');
-  keyBoardWrap.appendChild(keyboardLights);
   keyBoardWrap.appendChild(keyboardKeysWr);
 
   wrapper.appendChild(keyBoardWrap);
@@ -40,6 +38,20 @@ window.addEventListener('load', () => {
   for (let i = 0; i < keysMap.size; i++) {
     keyboardKeys.appendChild(keysMap.get(`row${i + 1}`));
   }
+
+  for (let i = 0; i < keyboardKeys.childNodes[0].childNodes.length - 1; i++) {
+    keyboardKeys.childNodes[0].childNodes[i].setAttribute('only-shift', 'true');
+  }
+  keyboardKeys.childNodes[0].firstChild.setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[1].childNodes[11].setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[1].childNodes[12].setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[1].childNodes[13].setAttribute('only-shift', 'true');
+  keyboardKeys.childNodes[3].childNodes[1].setAttribute('only-shift', 'true');
+  keyboardKeys.childNodes[3].childNodes[11].setAttribute('only-shift', 'true');
+  keyboardKeys.childNodes[3].childNodes[9].setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[3].childNodes[10].setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[2].childNodes[10].setAttribute('only-shift', 'en');
+  keyboardKeys.childNodes[2].childNodes[11].setAttribute('only-shift', 'en');
 
   keyboardKeys.childNodes[0].lastChild.classList.add('backspace_key');
 

@@ -65,6 +65,13 @@ window.addEventListener('load', () => {
   }
 
   window.addEventListener('keydown', (e) => {
+    let keyname;
+    if (e.target.getAttribute('keyName')) {
+      keyname = e.target.getAttribute('keyName');
+    } else {
+      keyname = null;
+    }
+
     for (let i = 0; i < keys.length; i++) {
       if (
         e.key === keys[i].getAttribute('keyEn')
@@ -77,8 +84,8 @@ window.addEventListener('load', () => {
       }
     }
 
-    if (e.key === 'Shift') {
-      getUpperCase(keys);
+    if (e.key === 'Shift' || e.key === 'CapsLock') {
+      getUpperCase(keys, keyname);
     }
     if (e.key === 'Control' || e.key === 'Alt') {
       if (
@@ -107,7 +114,7 @@ window.addEventListener('load', () => {
         keys[i].classList.remove('remove');
       }, 100);
     }
-    if (e.key === 'Shift') {
+    if (e.key === 'Shift' || e.key === 'CapsLock') {
       getLowerCase(keys);
     }
   });
@@ -130,6 +137,27 @@ window.addEventListener('load', () => {
   });
 
   keyBoardWrap.addEventListener('click', (e) => {
+    let keyname;
+    if (e.target.getAttribute('keyName')) {
+      keyname = e.target.getAttribute('keyName');
+    } else {
+      keyname = null;
+    }
+    if (keyname === 'ShiftLeft' || keyname === 'ShiftRight') {
+      toggleActive(e.target);
+      if (e.target.classList.contains('active')) {
+        getUpperCase(keys, keyname);
+      } else {
+        getLowerCase(keys);
+      }
+    } else if (keyname === 'CapsLock') {
+      toggleActive(e.target);
+      if (e.target.classList.contains('active')) {
+        getUpperCase(keys, keyname);
+      } else {
+        getLowerCase(keys);
+      }
+    }
     if (focus) {
       setTimeout(() => {
         txtField.focus();
@@ -141,7 +169,6 @@ window.addEventListener('load', () => {
       if (!focus) {
         return;
       }
-      const target = e.target.classList;
       if (target.contains('left')) {
         if (txtField.selectionStart > 0) {
           const ind = txtField.selectionStart;
@@ -158,13 +185,6 @@ window.addEventListener('load', () => {
       return;
     }
     // txtField.focus();
-    let keyname;
-
-    if (e.target.getAttribute('keyName')) {
-      keyname = e.target.getAttribute('keyName');
-    } else {
-      keyname = null;
-    }
 
     const target = e.target.innerHTML;
 
@@ -172,13 +192,6 @@ window.addEventListener('load', () => {
       txtField.value += ' ';
     } else if (target.length === 1) {
       txtField.value += target;
-    } else if (keyname === 'ShiftLeft' || keyname === 'ShiftRight' || keyname === 'CapsLock') {
-      toggleActive(e.target);
-      if (e.target.classList.contains('active')) {
-        getUpperCase(keys);
-      } else {
-        getLowerCase(keys);
-      }
     } else if (keyname === 'Tab') {
       txtField.value += '    ';
     } else if (keyname === 'Backspace') {
@@ -213,14 +226,30 @@ function rmTxt(target, txtValue) {
   return txtValue.replace(regExp, '');
 }
 
-function getUpperCase(keys) {
-  for (let i = 0; i < keys.length; i++) {
-    if (localStorage.getItem('active-language') === 'en') {
-      if (keys[i].getAttribute('keyEn') || keys[i].getAttribute('key')) {
-        keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameEn');
+function getUpperCase(keys, key) {
+  if (key === 'ShiftLeft' || key === 'ShiftLeft') {
+    for (let i = 0; i < keys.length; i++) {
+      if (localStorage.getItem('active-language') === 'en') {
+        if (keys[i].getAttribute('keyEn') || keys[i].getAttribute('key')) {
+          keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameEn');
+        }
+      } else if (keys[i].getAttribute('keyRu') || keys[i].getAttribute('key')) {
+        keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameRu');
       }
-    } else if (keys[i].getAttribute('keyRu') || keys[i].getAttribute('key')) {
-      keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameRu');
+    }
+  } else {
+    for (let i = 0; i < keys.length; i++) {
+      if (localStorage.getItem('active-language') === 'en') {
+        if (!keys[i].getAttribute('only-shift')) {
+          if (keys[i].getAttribute('keyEn') || keys[i].getAttribute('key')) {
+            keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameEn');
+          }
+        }
+      } else if (!keys[i].getAttribute('only-shift') || keys[i].getAttribute('only-shift') === 'en') {
+        if (keys[i].getAttribute('keyRu') || keys[i].getAttribute('key')) {
+          keys[i].innerHTML = keys[i].getAttribute('UpperCaseNameRu');
+        }
+      }
     }
   }
 }
@@ -324,8 +353,8 @@ function setAtrsforKeys(keys) {
   keys[8].setAttribute('UpperCaseNameRu', '*');
   keys[9].setAttribute('UpperCaseNameRu', '(');
   keys[10].setAttribute('UpperCaseNameRu', ')');
-  keys[11].setAttribute('UpperCaseNameRu', '-');
-  keys[12].setAttribute('UpperCaseNameRu', '=');
+  keys[11].setAttribute('UpperCaseNameRu', '_');
+  keys[12].setAttribute('UpperCaseNameRu', '+');
 
   keys[25].setAttribute('UpperCaseNameEn', '{');
   keys[26].setAttribute('UpperCaseNameEn', '}');

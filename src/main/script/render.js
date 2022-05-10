@@ -15,36 +15,16 @@ window.addEventListener('load', () => {
   wrapper.appendChild(textArea);
   textArea.placeholder = 'Hello there! \nEnter your thoughts...';
 
-  const nightMode = createEl('div', 'night_mode');
-  nightMode.innerHTML = "<div class='toggle_circle'></div>";
-
-  wrapper.appendChild(nightMode);
-
-  const changeLightColor = createEl('div', 'change_light_color');
-  changeLightColor.innerHTML = "<div class='colors'><input type='color' class='colors_input' /></div>";
-
   const noticeHowChancgeLanguage = createEl('h1', 'title');
   noticeHowChancgeLanguage.classList.add('change-language_title');
   noticeHowChancgeLanguage.innerHTML = 'Press Ctrl + Alt to change language';
-
-  const nightModeTitle = createEl('h2', 'title');
-  nightModeTitle.classList.add('nightModeTitle_title');
-  nightModeTitle.innerHTML = 'Night mode';
-
-  const changeColorTitle = createEl('h2', 'title');
-  changeColorTitle.classList.add('changeColorTitle_title');
-  changeColorTitle.innerHTML = 'Change keyboard color';
 
   const ocTitle = createEl('h2', 'title');
   const oc = isMacintosh() ? 'Mac OS' : 'Windows';
   ocTitle.classList.add('ocTitle_title');
   ocTitle.innerHTML = `Made for ${oc}`;
 
-  wrapper.appendChild(nightMode);
-  wrapper.appendChild(changeLightColor);
   wrapper.appendChild(noticeHowChancgeLanguage);
-  wrapper.appendChild(nightModeTitle);
-  wrapper.appendChild(changeColorTitle);
   wrapper.appendChild(ocTitle);
 
   const keyBoardWrap = createEl('div', 'keyboard_wrapp');

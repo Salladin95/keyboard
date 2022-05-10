@@ -1,18 +1,6 @@
 window.addEventListener('load', () => {
-  const body = document.querySelector('body');
-
   const keyBoardWrap = document.querySelector('.keyboard_wrapp');
   const txtField = document.querySelector('.text-field');
-  const keyBoardLights = document.querySelector('.keyboard_lights');
-  const changeLightColor = document.querySelector('.change_light_color');
-  const colorInput = document.querySelector('.colors_input');
-  const toggleCircle = document.querySelector('.toggle_circle');
-  const nightMode = document.querySelector('.night_mode');
-
-  const upArrow = document.querySelector('#up');
-  const downArrow = document.querySelector('#down');
-  const leftArrow = document.querySelector('#left');
-  const rightArrow = document.querySelector('#right');
   const keys = document.querySelectorAll('.keys');
   let focus = false;
   let highlight = '';
@@ -124,32 +112,6 @@ window.addEventListener('load', () => {
     }
   });
 
-  nightMode.addEventListener('click', () => {
-    toggleCircle.classList.toggle('active');
-    body.classList.toggle('active');
-    nightMode.classList.toggle('active');
-    keyBoardWrap.classList.toggle('active');
-    txtField.classList.toggle('active');
-    changeLightColor.classList.toggle('active');
-
-    for (let i = 0; i < keys.length; i++) {
-      keys[i].classList.toggle('keys_night');
-    }
-  });
-
-  colorInput.addEventListener('input', () => {
-    for (let i = 0; i < keys.length; i++) {
-      keys[i].style.color = colorInput.value;
-    }
-
-    upArrow.style.fill = colorInput.value;
-    downArrow.style.fill = colorInput.value;
-    leftArrow.style.fill = colorInput.value;
-    rightArrow.style.fill = colorInput.value;
-
-    keyBoardLights.style.background = colorInput.value;
-  });
-
   txtField.addEventListener('focus', () => {
     if (!focus) {
       setTimeout(() => {
@@ -238,8 +200,8 @@ window.addEventListener('load', () => {
   });
 
   document.onselectionchange = () => {
-    console.log(txtField.selectionStart);
-    console.log(txtField.selectionEnd);
+    //console.log(txtField.selectionStart);
+    //console.log(txtField.selectionEnd);
   };
 });
 

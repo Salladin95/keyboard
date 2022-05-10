@@ -17,7 +17,7 @@
 .keyboard_wrapp {
   max-width: 1012px;
   width: 100%;
-  background-color: #e7e7e7;
+  background-color: #a38df1;
   overflow: hidden;
   position: relative;
 }
@@ -43,10 +43,6 @@
   &::placeholder {
     color: rgba(255, 255, 255, 0.699);
   }
-}
-
-.change_light_color {
-  order: -1;
 }
 
 .change-language_title {

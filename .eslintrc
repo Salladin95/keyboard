@@ -1,12 +1,4 @@
 {
   "env": { "browser": true, "es6": true, "node": true },
-  "extends": ["airbnb/base"],
-  "rules": {
-    "no-use-before-define": "off",
-    "no-plusplus": "off",
-    "spaced-comment": "off",
-    "no-param-reassign": "off",
-    "no-multi-assign": "off",
-    "operator-assignment": "off"
-  }
+  "extends": ["airbnb/base"]
 }

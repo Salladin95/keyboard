@@ -1,3 +1,9 @@
+import {
+  createEl,
+  fillKeys,
+  isMacintosh,
+} from './helper';
+
 const keysMap = new Map();
 export default keysMap;
 
@@ -35,11 +41,11 @@ window.addEventListener('load', () => {
 
   const keyboardKeys = document.querySelector('.keyboard_keys');
 
-  for (let i = 0; i < keysMap.size; i++) {
+  for (let i = 0; i < keysMap.size; i += 1) {
     keyboardKeys.appendChild(keysMap.get(`row${i + 1}`));
   }
 
-  for (let i = 0; i < keyboardKeys.childNodes[0].childNodes.length - 1; i++) {
+  for (let i = 0; i < keyboardKeys.childNodes[0].childNodes.length - 1; i += 1) {
     keyboardKeys.childNodes[0].childNodes[i].setAttribute('only-shift', 'true');
   }
   keyboardKeys.childNodes[0].firstChild.setAttribute('only-shift', 'en');
@@ -152,101 +158,3 @@ window.addEventListener('load', () => {
       </g>
   </svg>`;
 });
-
-const createKeys = (arr) => {
-  let i = 0;
-
-  const row = createEl('div', 'row');
-
-  while (i < arr.length) {
-    const key = document.createElement('div');
-    key.classList.add('keys');
-    if (Array.isArray(arr[i])) {
-      key.setAttribute('keyEn', arr[i][0]);
-      key.setAttribute('keyRu', arr[i][1]);
-      key.innerHTML = key.getAttribute('keyEn');
-    } else {
-      key.innerHTML = arr[i];
-    }
-    row.appendChild(key);
-    i++;
-  }
-
-  return row;
-};
-
-function createEl(tag, className) {
-  const el = document.createElement(tag);
-  el.classList.add(className);
-  return el;
-}
-
-function isMacintosh() {
-  return navigator.platform.indexOf('Mac') > -1;
-}
-
-function fillKeys(map) {
-  const oc = isMacintosh() ? 'Mac' : 'Win';
-
-  map.set('row1', createKeys([['`', 'ё'], 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '-', '=', 'Backspace']));
-  map.set(
-    'row2',
-    createKeys(['Tab',
-      ['q', 'й'],
-      ['w', 'ц'],
-      ['e', 'у'],
-      ['r', 'к'],
-      ['t', 'е'],
-      ['y', 'н'],
-      ['u', 'г'],
-      ['i', 'ш'],
-      ['o', 'щ'],
-      ['p', 'з'],
-      ['[', 'х'],
-      [']', 'ъ'],
-      '\\',
-      'DEL',
-    ]),
-  );
-  map.set(
-    'row3',
-    createKeys([
-      'Caps Lock',
-      ['a', 'ф'],
-      ['s', 'ы'],
-      ['d', 'в'],
-      ['f', 'а'],
-      ['g', 'п'],
-      ['h', 'р'],
-      ['j', 'о'],
-      ['k', 'л'],
-      ['l', 'д'],
-      [';', 'ж'],
-      ["'", 'э'],
-      'Enter',
-    ]),
-  );
-  map.set(
-    'row4',
-    createKeys([
-      'Shift',
-      '/',
-      ['z', 'я'],
-      ['x', 'ч'],
-      ['c', 'с'],
-      ['v', 'м'],
-      ['b', 'и'],
-      ['n', 'т'],
-      ['m', 'ь'],
-      ['.', 'б'],
-      [',', 'ю'],
-      '/',
-      '',
-      'Shift',
-    ]),
-  );
-  map.set(
-    'row5',
-    createKeys(['Ctrl', oc, 'Alt', '', 'Alt', 'Ctrl', '', '', '']),
-  );
-}

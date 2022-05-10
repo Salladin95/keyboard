@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
   const leftArrow = document.querySelector('#left');
   const rightArrow = document.querySelector('#right');
   const keys = document.querySelectorAll('.keys');
-  let focus;
+  let focus = false;
   let highlight = '';
   let language = 'en';
 
@@ -172,6 +172,8 @@ window.addEventListener('load', () => {
       setTimeout(() => {
         txtField.focus();
       }, 200);
+    } else {
+      return;
     }
     if (e.target.classList.contains('arr')) {
       if (!focus) {
@@ -225,6 +227,12 @@ window.addEventListener('load', () => {
           txtField.value = rmTxt(highlight, txtField.value);
           highlight = '';
         }
+      }
+    } else if (keyname === 'Enter') {
+      txtField.value += '\n';
+    } else if (keyname === 'Delete') {
+      if (txtField.value.length > 0 && txtField.selectionEnd < txtField.value.length) {
+        txtField.value = rmTxt(txtField.selectionEnd, txtField.value);
       }
     }
   });

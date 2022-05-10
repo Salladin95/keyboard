@@ -169,12 +169,12 @@ window.addEventListener('load', () => {
       if (!focus) {
         return;
       }
-      if (target.contains('left')) {
+      if (e.target.classList.contains('left')) {
         if (txtField.selectionStart > 0) {
           const ind = txtField.selectionStart;
           txtField.selectionStart = txtField.selectionEnd = ind - 1;
         }
-      } else if (target.contains('right')) {
+      } else if (e.target.classList.contains('right')) {
         const ind = txtField.selectionStart;
         if (ind < txtField.value.length) {
           txtField.selectionStart = txtField.selectionEnd = ind + 1;

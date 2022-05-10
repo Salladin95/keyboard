@@ -184,12 +184,19 @@ window.addEventListener('load', () => {
     if (!e.target.classList.contains('keys')) {
       return;
     }
-    // txtField.focus();
 
     const target = e.target.innerHTML;
 
     if (e.target.classList.contains('space_key')) {
-      txtField.value += ' ';
+      const ind = txtField.selectionEnd + 1;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += ' ';
+      } else {
+        const startStr = txtField.value.slice(0, [txtField.selectionEnd]);
+        const endStr = txtField.value.slice([txtField.selectionEnd]);
+        txtField.value = `${startStr} ${endStr}`;
+        txtField.selectionStart = txtField.selectionEnd = ind;
+      }
     } else if (target.length === 1) {
       txtField.value += target;
     } else if (keyname === 'Tab') {

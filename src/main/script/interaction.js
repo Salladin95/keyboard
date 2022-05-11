@@ -1,11 +1,10 @@
 import {
   setAtrsforKeys,
   rmTxt,
-  toggleLanguage,
-  checkActive,
   toggleActive,
   getLowerCase,
   getUpperCase,
+  addValueToTxt,
 } from './helper';
 
 window.addEventListener('load', () => {
@@ -72,61 +71,6 @@ window.addEventListener('load', () => {
     }
     language = localStorage.getItem('active-language');
   }
-
-  window.addEventListener('keydown', (e) => {
-    let keyname;
-    if (e.target.getAttribute('keyName')) {
-      keyname = e.target.getAttribute('keyName');
-    } else {
-      keyname = null;
-    }
-
-    for (let i = 0; i < keys.length; i += 1) {
-      if (
-        e.key === keys[i].getAttribute('keyEn')
-        || e.key === keys[i].getAttribute('keyRu')
-        || e.key === keys[i].getAttribute('UpperCaseNameEn')
-        || e.key === keys[i].getAttribute('UpperCaseNameRu')
-        || e.code === keys[i].getAttribute('keyname')
-      ) {
-        keys[i].classList.add('active');
-      }
-    }
-
-    if (e.key === 'Shift' || e.key === 'CapsLock') {
-      getUpperCase(keys, keyname);
-    }
-    if (e.key === 'Control' || e.key === 'Alt') {
-      if (
-        (checkActive(ctrlLeft) && checkActive(altLeft))
-        || (checkActive(ctrlRight) && checkActive(altRight))
-      ) {
-        toggleLanguage(keys);
-      }
-    }
-  });
-
-  window.addEventListener('keyup', (e) => {
-    for (let i = 0; i < keys.length; i += 1) {
-      if (
-        e.key === keys[i].getAttribute('keyEn')
-        || e.key === keys[i].getAttribute('keyRu')
-        || e.code === keys[i].getAttribute('keyname')
-        || e.key === keys[i].getAttribute('UpperCaseNameEn')
-        || e.key === keys[i].getAttribute('UpperCaseNameRu')
-      ) {
-        keys[i].classList.remove('active');
-        keys[i].classList.add('remove');
-      }
-
-      setTimeout(() => {
-        keys[i].classList.remove('remove');
-      }, 100);
-    }
-    if (e.key === 'Shift' || e.key === 'CapsLock') {
-      getLowerCase(keys);
-    }
-  });
 
   txtField.addEventListener('focus', () => {
     if (!focus) {
@@ -198,21 +142,54 @@ window.addEventListener('load', () => {
 
     const target = e.target.innerHTML;
 
-    if (e.target.classList.contains('space_key')) {
+    if (target.length === 1) {
+      const ind = txtField.selectionEnd + 1;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += target;
+      } else {
+        txtField.value = addValueToTxt(
+          txtField,
+          target,
+        );
+        txtField.selectionStart = ind;
+        txtField.selectionEnd = ind;
+      }
+    } else if (e.target.classList.contains('space_key')) {
       const ind = txtField.selectionEnd + 1;
       if (txtField.selectionEnd >= txtField.value.length) {
         txtField.value += ' ';
       } else {
-        const startStr = txtField.value.slice(0, [txtField.selectionEnd]);
-        const endStr = txtField.value.slice([txtField.selectionEnd]);
-        txtField.value = `${startStr} ${endStr}`;
+        txtField.value = addValueToTxt(
+          txtField,
+          ' ',
+        );
         txtField.selectionStart = ind;
         txtField.selectionEnd = ind;
       }
-    } else if (target.length === 1) {
-      txtField.value += target;
     } else if (keyname === 'Tab') {
-      txtField.value += '    ';
+      const ind = txtField.selectionEnd + 4;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += '    ';
+      } else {
+        txtField.value = addValueToTxt(
+          txtField,
+          '    ',
+        );
+        txtField.selectionStart = ind;
+        txtField.selectionEnd = ind;
+      }
+    } else if (keyname === 'Enter') {
+      const ind = txtField.selectionEnd + 1;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += '\n';
+      } else {
+        txtField.value = addValueToTxt(
+          txtField,
+          '\n',
+        );
+        txtField.selectionStart = ind;
+        txtField.selectionEnd = ind;
+      }
     } else if (keyname === 'Backspace') {
       if (txtField.value.length > 0 && txtField.selectionEnd > 0) {
         const ind = txtField.selectionEnd - 1;
@@ -220,8 +197,6 @@ window.addEventListener('load', () => {
         txtField.selectionStart = ind;
         txtField.selectionEnd = ind;
       }
-    } else if (keyname === 'Enter') {
-      txtField.value += '\n';
     } else if (keyname === 'Delete') {
       if (txtField.value.length > 0 && txtField.selectionEnd < txtField.value.length) {
         const ind = txtField.selectionEnd;

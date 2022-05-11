@@ -72,6 +72,12 @@ function rmTxt(txtValue, ind1, ind2) {
   return `${startStr}${endStr}`;
 }
 
+function addValueToTxt(txtValue, additional) {
+  const startStr = txtValue.value.slice(0, txtValue.selectionEnd);
+  const endStr = txtValue.value.slice(txtValue.selectionEnd);
+  return `${startStr}${additional}${endStr}`;
+}
+
 function getUpperCase(key) {
   const keys = document.querySelectorAll('.keys');
   if (key === 'ShiftLeft' || key === 'ShiftLeft') {
@@ -257,4 +263,5 @@ export {
   createKeys,
   fillKeys,
   isMacintosh,
+  addValueToTxt,
 };

@@ -3,6 +3,7 @@ import {
   getUpperCase,
   toggleLanguage,
   getLowerCase,
+  addValueToTxt,
 } from './helper';
 
 window.addEventListener('load', () => {
@@ -11,8 +12,43 @@ window.addEventListener('load', () => {
   const ctrlRight = document.querySelector('.ctrl_right');
   const altLeft = document.querySelector('.alt_left');
   const altRight = document.querySelector('.alt_right');
+  const txtField = document.querySelector('.text-field');
+  let focus = false;
+
+  txtField.addEventListener('focus', () => {
+    if (!focus) {
+      setTimeout(() => {
+        focus = true;
+      }, 200);
+    }
+  });
+
+  txtField.addEventListener('blur', () => {
+    if (focus) {
+      setTimeout(() => {
+        focus = false;
+      }, 200);
+    }
+  });
 
   window.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      if (!focus) {
+        return;
+      }
+      const ind = txtField.selectionEnd + 4;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += '    ';
+      } else {
+        txtField.value = addValueToTxt(
+          txtField,
+          '    ',
+        );
+        txtField.selectionStart = ind;
+        txtField.selectionEnd = ind;
+      }
+    }
     let keyname;
     if (e.target.getAttribute('keyName')) {
       keyname = e.target.getAttribute('keyName');

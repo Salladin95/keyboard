@@ -85,7 +85,6 @@ window.addEventListener('load', () => {
       setTimeout(() => {
         focus = false;
       }, 200);
-      // console.log("blur");
     }
   });
 

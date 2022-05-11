@@ -32,23 +32,6 @@ window.addEventListener('load', () => {
   });
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      if (!focus) {
-        return;
-      }
-      const ind = txtField.selectionEnd + 4;
-      if (txtField.selectionEnd >= txtField.value.length) {
-        txtField.value += '    ';
-      } else {
-        txtField.value = addValueToTxt(
-          txtField,
-          '    ',
-        );
-        txtField.selectionStart = ind;
-        txtField.selectionEnd = ind;
-      }
-    }
     let keyname;
     if (e.target.getAttribute('keyName')) {
       keyname = e.target.getAttribute('keyName');
@@ -68,7 +51,23 @@ window.addEventListener('load', () => {
         keys[i].classList.add('active');
       }
     }
-
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      if (!focus) {
+        return;
+      }
+      const ind = txtField.selectionEnd + 4;
+      if (txtField.selectionEnd >= txtField.value.length) {
+        txtField.value += '    ';
+      } else {
+        txtField.value = addValueToTxt(
+          txtField,
+          '    ',
+        );
+        txtField.selectionStart = ind;
+        txtField.selectionEnd = ind;
+      }
+    }
     if (e.key === 'Shift' || e.key === 'CapsLock') {
       getUpperCase(keys, keyname);
     }

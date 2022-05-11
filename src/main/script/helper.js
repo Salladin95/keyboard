@@ -58,12 +58,7 @@ function setAtrsforKeys() {
   keys[40].setAttribute('UpperCaseNameEn', '"');
   keys[51].setAttribute('UpperCaseNameEn', '<');
   keys[52].setAttribute('UpperCaseNameEn', '>');
-  keys[43].setAttribute('key', '/');
-  keys[43].setAttribute('UpperCaseNameEn', '/');
-  keys[43].setAttribute('UpperCaseNameRu', ',');
   keys[53].setAttribute('key', '/');
-  keys[53].setAttribute('UpperCaseNameEn', '?');
-  keys[53].setAttribute('UpperCaseNameRu', '.');
 }
 
 function rmTxt(txtValue, ind1, ind2) {

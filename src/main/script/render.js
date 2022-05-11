@@ -94,6 +94,7 @@ window.addEventListener('load', () => {
     'ctrl_key',
     'ctrl_right',
   );
+  keyboardKeys.childNodes[3].childNodes[11].setAttribute('keyname', 'Slash');
 
   const up = keyboardKeys.childNodes[3].lastChild.previousSibling;
   const down = keyboardKeys.childNodes[4].childNodes[7];
